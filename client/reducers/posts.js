@@ -24,7 +24,7 @@ const posts = (state = [], action) => {
             const i = action.index;
             return[
                 ...state.slice(0,i), // before one we update
-                {...state[i], likes: state[i].likes+1}, //state[i] = posts, so ... spread until likes, and change likes to likes++
+                {...state[i], likes: state[i].likes+10}, //state[i] = posts, so ... spread until likes, and change likes to likes++
                 ...state.slice(i + 1), // after the element we update
             ]
         default: 

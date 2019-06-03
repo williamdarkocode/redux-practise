@@ -12,8 +12,48 @@
 
 // comments reducer
 
-const comments = (state = [], action) => {
-    // console.log(state, action);
+// const comments = (state = [], action) => {
+//     // console.log(state, action);
+//     return state;
+// }
+
+// function comments(state = [], action) => {
+
+// }
+
+function postComments(state = [], action) {
+    switch(action.type) {
+        case 'ADD_COMMENT':
+            // return new state with new comment
+            return [
+                ...state,
+                {
+                    user: action.author,
+                    text: action.comment
+                }
+            ];
+        case 'REMOVE_COMMENT':
+            return [
+                // take from 0 to index we want to delete
+                ...state.slice(0,action.index),
+                // from the following index to the end
+                ...state.slice(action.index + 1)
+            ]
+        default:
+            return state;
+    }
+    return state;
+}
+
+function comments(state = [], action) {
+    if(typeof action.postId !== 'undefined') {
+        return {
+            //current state = ...state
+            ...state,
+            // overwrite the specific post with postid given
+            [action.postId]: postComments(state[action.postId], action)
+        }
+    }
     return state;
 }
 

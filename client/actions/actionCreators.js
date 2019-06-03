@@ -9,12 +9,13 @@ export const increment = (idx) => {
 
 // action for adding commnets
 
-export const addComment =  (pId, auth, comm) => {
+export const addComment =  (postId, author, comment) => {
+    console.log("Dispatching add comment");
     return {
         type: 'ADD_COMMENT',
-        postId: pId,
-        author: auth,
-        comment: comm
+        postId,
+        author,
+        comment
     }
 }
 

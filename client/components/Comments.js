@@ -2,13 +2,20 @@ import React from 'react';
 
 
 export default class Comments extends React.Component {
+    constructor(props) {
+        super(props);
+        this.renderComments = this.renderComments.bind(this);
+    }
+
     renderComments(comment, i) {
         return (
             <div className="comment" key={i}>
                 <p>
                     <strong>{comment.user}</strong>
                     {comment.text}
-                    <button className="remove-comment">&times;</button>
+                    <button className="remove-comment" 
+                    onClick={this.props.removeComment.bind(null, this.props.params.postid, i)}>&times;
+                    </button>
                 </p>
             </div>
         )
@@ -25,6 +32,7 @@ export default class Comments extends React.Component {
         const comment = this.refs.comment.value;
         // console.log(postId, comment, author);
         this.props.addComment(postid, author, comment);
+        this.refs.commentForm.reset();
     }
 
     render() {

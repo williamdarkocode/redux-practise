@@ -18,10 +18,24 @@ const defaultState = {
     comments, comments
 };
 
+const enhancers = compose(
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+);
+
 // create store
 
-const store = createStore(rootReducer, defaultState);
+const store = createStore(rootReducer, defaultState, enhancers);
 
 export const history = syncHistoryWithStore(browserHistory, store);
+
+// hotloading reudcers bebe! ;).... heheh im so fucking wierd ye have no idea lool
+
+// check if module is hot
+if(module.hot) {
+    module.hot.accept('./reducers', () => {
+        const nextRootReducer = require('./reducers/index').default;
+        store.replaceReducer(nextRootReducer);
+    });
+}
 
 export default store;

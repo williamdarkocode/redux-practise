@@ -14,6 +14,29 @@ import { Provider } from 'react-redux';
 
 import store, { history } from './store';
 
+// using sentry
+import Raven from 'raven-js';
+import { sentry_url, logException } from './data/config';
+//custom tag
+
+// Raven.config(sentry_url {
+//     tags: {
+//         git_commit: 'commitsSomething',
+//         userLevel: 'editor'
+//     }
+// }).install();
+
+Raven.config(sentry_url).install();
+
+// logException(new Error('download failed', {
+//     email:
+// }))
+
+
+// Raven.captureMessage('something bad happened);
+// Reaven.showReportDialog();
+
+
 
 const router = (
     <Provider store={store}>
